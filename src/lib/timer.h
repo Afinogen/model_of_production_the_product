@@ -10,16 +10,16 @@
 
 class Timer
 {
-	public:
-		Timer();
-		Timer(const int time);
-		~Timer();
-		void IncTime();
-		void DecTime();
-		void setTime(const int time);
-		int GetTime() const;
-	private:
-		int time_;
+    public:
+        Timer();
+        Timer(const int time);
+        ~Timer();
+        void IncTime();
+        void DecTime();
+        void setTime(const int time);
+        int GetTime() const;
+    private:
+        int time_;
 };
 
 #endif /* TIMER_H_ */

@@ -9,12 +9,12 @@
 
 Timer::Timer()
 {
-	time_=0;
+    time_=0;
 }
 
 Timer::Timer(const int time)
 {
-	time_=time;
+    time_=time;
 }
 
 Timer::~Timer()
@@ -24,21 +24,21 @@ Timer::~Timer()
 
 void Timer::IncTime()
 {
-	time_++;
+    ++time_;
 }
 
 void Timer::DecTime()
 {
-	time_--;
+    --time_;
 }
 
 int Timer::GetTime() const
 {
-	return time_;
+    return time_;
 }
 
 void Timer::setTime(const int time)
 {
-	time_=time;
+    time_=time;
 }
 

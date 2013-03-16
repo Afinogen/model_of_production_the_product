@@ -10,10 +10,10 @@
 
 class Channel
 {
-	public:
-		Channel();
-		~Channel();
-	private:
+    public:
+        Channel();
+        ~Channel();
+    private:
 };
 
 #endif /* CHANNEL_H_ */

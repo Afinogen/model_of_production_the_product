@@ -12,6 +12,7 @@
 #include "container.h"
 #include "generator.h"
 #include "queue.h"
+#include "random.h"
 #include "request.h"
 #include "source.h"
 #include "timer.h"

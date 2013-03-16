@@ -8,12 +8,15 @@
 #ifndef QUEUE_H_
 #define QUEUE_H_
 
-class Queue
+#include "container.h"
+
+class Queue: public Container
 {
-	public:
-		Queue();
-		~Queue();
-	private:
+    public:
+        Queue();
+        ~Queue();
+    private:
+
 };
 
 #endif /* QUEUE_H_ */

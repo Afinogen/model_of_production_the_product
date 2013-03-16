@@ -8,12 +8,14 @@
 #ifndef GENERATOR_H_
 #define GENERATOR_H_
 
-class Generator
+#include "timer.h"
+
+class Generator: public Timer
 {
-	public:
-		Generator();
-		~Generator();
-	private:
+    public:
+        Generator();
+        ~Generator();
+    private:
 };
 
 #endif /* GENERATOR_H_ */

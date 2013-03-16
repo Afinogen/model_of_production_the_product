@@ -25,6 +25,9 @@ int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance,
 {
 	MSG messages; /* Here messages to the application are saved */
 
+	//for(int i=0;i<10;i++)
+	//printf("%f\n", Random::GetRand(1,5));
+
 	/* Run the message loop. It will run until GetMessage() returns 0 */
 	while (GetMessage(&messages, NULL, 0, 0))
 	{
