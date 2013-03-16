@@ -5,8 +5,8 @@
  *      Author: Afinogen
  */
 
-#ifndef RANDOM_H_
-#define RANDOM_H_
+#ifndef SRC_LIB_RANDOM_H_
+#define SRC_LIB_RANDOM_H_
 
 #include <time.h>
 #include <stdlib.h>
@@ -16,9 +16,9 @@ class Random
     public:
         Random();
         ~Random();
-        static double GetRand();
-        static double GetRand(const int a, const int b);
+        static double Rand();
+        static double Rand(const int a, const int b);
     private:
 };
 
-#endif /* RANDOM_H_ */
+#endif  // SRC_LIB_RANDOM_H_

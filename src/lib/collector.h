@@ -5,8 +5,8 @@
  *      Author: Afinogen
  */
 
-#ifndef COLLECTOR_H_
-#define COLLECTOR_H_
+#ifndef SRC_LIB_COLLECTOR_H_
+#define SRC_LIB_COLLECTOR_H_
 
 #include "container.h"
 
@@ -18,4 +18,4 @@ class Collector: public Container
     private:
 };
 
-#endif /* COLLECTOR_H_ */
+#endif  // SRC_LIB_COLLECTOR_H_

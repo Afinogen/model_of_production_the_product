@@ -8,7 +8,7 @@
 
 Channel::Channel()
 {
-
+    processes_request_ = NULL;
 }
 
 Channel::~Channel()
@@ -16,3 +16,19 @@ Channel::~Channel()
 
 }
 
+void Channel::setRequest(Request *request)
+{
+    if (request == NULL) return;
+
+    processes_request_ = request;
+}
+
+void Channel::DeleteRequest()
+{
+    processes_request_ = NULL;
+}
+
+Request *Channel::GetRequest() const
+{
+    return processes_request_;
+}

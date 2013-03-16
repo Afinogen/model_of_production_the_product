@@ -5,70 +5,90 @@
  *      Author: Afinogen
  */
 
-#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
-#include "lib\lib.h"
+#include "function_libsmo.h"
 
 using namespace std;
+
+UINT_PTR hTimer = NULL;     //указатель на таймер
+bool pause = false;
 
 //Функция таймера
 VOID CALLBACK TimerProc(HWND hWnd, UINT nMsg, UINT nIDEvent, DWORD dwTime)
 {
+    if (pause) return;
 
+    StepEmulation();
 }
 
 //Главная функция
 int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance,
-		LPSTR lpszArgument, int nFunsterStil)
+        LPSTR lpszArgument, int nFunsterStil)
 {
-	MSG messages; /* Here messages to the application are saved */
+    MSG messages; /* Here messages to the application are saved */
 
-	//for(int i=0;i<10;i++)
-	//printf("%f\n", Random::GetRand(1,5));
+    CONSOLE_SCREEN_BUFFER_INFO info;  // Для получения текущей позиции курсора
 
-	/* Run the message loop. It will run until GetMessage() returns 0 */
-	while (GetMessage(&messages, NULL, 0, 0))
-	{
-		/* Translate virtual-key messages into character messages */
-		TranslateMessage(&messages);
-		/* Send message to WindowProcedure */
-		DispatchMessage(&messages);
-	}
+    HANDLE hCon = GetStdHandle(STD_OUTPUT_HANDLE);  // Это ты знаешь, зачем
+    GetConsoleScreenBufferInfo(hCon, &info);  // Получаем информацию о позиции курсора
 
-	/* The program return-value is 0 - The value that PostQuitMessage() gave */
-	return messages.wParam;
+    if (info.dwCursorPosition.Y == 0) FreeConsole();
+    else system("cls");
+
+    char buf[10] = {'\0'};
+    //printf("%s\n",buf);
+    //scanf("%s", buf);
+
+    InitSMO(10);//CharToInt(buf));
+    PostQuitMessage(0);
+    //hTimer=SetTimer(NULL,0, 50, &TimerProc); //запуск таймера
+
+    //for(int i=0;i<10;i++)
+    //printf("%f\n", Random::GetRand(1,5));
+    /* Run the message loop. It will run until GetMessage() returns 0 */
+    while (GetMessage(&messages, NULL, 0, 0))
+    {
+        /* Translate virtual-key messages into character messages */
+        TranslateMessage(&messages);
+        /* Send message to WindowProcedure */
+        DispatchMessage(&messages);
+    }
+
+    /* The program return-value is 0 - The value that PostQuitMessage() gave */
+    return messages.wParam;
 }
 
 LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam,
-		LPARAM lParam)
+        LPARAM lParam)
 {
-	PAINTSTRUCT ps;
-	HDC hdc;
+    PAINTSTRUCT ps;
+    HDC hdc;
 
-	switch (message)
-	/* handle the messages */
-	{
-		case WM_PAINT:
-			hdc=BeginPaint(hwnd, &ps);
+    switch (message)
+    /* handle the messages */
+    {
+        case WM_PAINT:
+            hdc = BeginPaint(hwnd, &ps);
 
-			EndPaint(hwnd, &ps);
-		break;
-		case WM_COMMAND:
-		break;
-		case WM_CLOSE:
+            EndPaint(hwnd, &ps);
+        break;
+        case WM_COMMAND:
+        break;
+        case WM_CLOSE:
 
-			PostQuitMessage(0);
-		break;
-		case WM_DESTROY:
+            PostQuitMessage(0);
+        break;
+        case WM_DESTROY:
+            if (hTimer != NULL) KillTimer(hwnd, hTimer);
+            ClearSMO();
+            PostQuitMessage(0); /* send a WM_QUIT to the message queue */
+        break;
+        default: /* for messages that we don't deal with */
+            return DefWindowProc(hwnd, message, wParam, lParam);
+    }
 
-			PostQuitMessage(0); /* send a WM_QUIT to the message queue */
-		break;
-		default: /* for messages that we don't deal with */
-			return DefWindowProc(hwnd, message, wParam, lParam);
-	}
-
-	return 0;
+    return 0;
 }
 

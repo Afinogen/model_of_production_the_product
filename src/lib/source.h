@@ -5,16 +5,27 @@
  *      Author: Afinogen
  */
 
-#ifndef SOURCE_H_
-#define SOURCE_H_
+#ifndef SRC_LIB_SOURCE_H_
+#define SRC_LIB_SOURCE_H_
 
-class Source
+#include "random.h"
+#include "request.h"
+#include "timer.h"
+
+class Source: public Timer
 {
-	public:
-		Source();
-		~Source();
-	private:
-
+    public:
+        Source(const int rand_a, const int rand_b, const int type);
+        ~Source();
+        bool GetState() const;
+        Request *GetNewRequest(const int time_gen);
+        void GenTime();
+        int GetCountGenRequest() const;
+    private:
+        int rand_a_;
+        int rand_b_;
+        int type_;
+        int count_gen_request_;
 };
 
-#endif /* SOURCE_H_ */
+#endif  // SRC_LIB_SOURCE_H_

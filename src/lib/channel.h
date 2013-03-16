@@ -5,15 +5,23 @@
  *      Author: Afinogen
  */
 
-#ifndef CHANNEL_H_
-#define CHANNEL_H_
+#ifndef SRC_LIB_CHANNEL_H_
+#define SRC_LIB_CHANNEL_H_
 
-class Channel
+#include <stdlib.h>
+#include "request.h"
+#include "timer.h"
+
+class Channel: public Timer
 {
     public:
         Channel();
         ~Channel();
+        void setRequest(Request *request);
+        void DeleteRequest();
+        Request *GetRequest() const;
     private:
+        Request *processes_request_;
 };
 
-#endif /* CHANNEL_H_ */
+#endif  // SRC_LIB_CHANNEL_H_

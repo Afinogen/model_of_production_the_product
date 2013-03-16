@@ -5,8 +5,8 @@
  *      Author: Afinogen
  */
 
-#ifndef TIMER_H_
-#define TIMER_H_
+#ifndef SRC_LIB_TIMER_H_
+#define SRC_LIB_TIMER_H_
 
 class Timer
 {
@@ -22,4 +22,4 @@ class Timer
         int time_;
 };
 
-#endif /* TIMER_H_ */
+#endif  // SRC_LIB_TIMER_H_

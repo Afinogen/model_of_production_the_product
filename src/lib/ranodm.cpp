@@ -16,8 +16,8 @@ Random::~Random()
 {
 
 }
-
-double Random::GetRand()
+// Генерация случайной величины, равномерно распреденной в интервале [0, 1]
+double Random::Rand()
 {
     time_t t;
     t = time(NULL);
@@ -27,10 +27,10 @@ double Random::GetRand()
 
     return r;
 }
-
-double Random::GetRand(const int a, const int b)
+// Генерация случайной величины, равномерно распределенной в интервале [a, b]
+double Random::Rand(const int a, const int b)
 {
-    int r = GetRand();
+    int r = Rand();
 
     r = a + r % (b - a + 1);
     if (r < a) r = a;

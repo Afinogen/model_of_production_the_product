@@ -5,8 +5,8 @@
  *      Author: Afinogen
  */
 
-#ifndef CONTAINER_H_
-#define CONTAINER_H_
+#ifndef SRC_LIB_CONTAINER_H_
+#define SRC_LIB_CONTAINER_H_
 
 #include <stdlib.h>
 #include <vector>
@@ -29,4 +29,4 @@ class Container
         vector<Request*> array_data_;
 };
 
-#endif /* CONTAINER_H_ */
+#endif  // SRC_LIB_CONTAINER_H_

@@ -5,8 +5,8 @@
  *      Author: Afinogen
  */
 
-#ifndef QUEUE_H_
-#define QUEUE_H_
+#ifndef SRC_LIB_QUEUE_H_
+#define SRC_LIB_QUEUE_H_
 
 #include "container.h"
 
@@ -19,4 +19,4 @@ class Queue: public Container
 
 };
 
-#endif /* QUEUE_H_ */
+#endif  // SRC_LIB_QUEUE_H_

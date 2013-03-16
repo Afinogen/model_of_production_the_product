@@ -5,12 +5,13 @@
  *      Author: Afinogen
  */
 
-#ifndef LIB_H_
-#define LIB_H_
+#ifndef SRC_LIB_LIB_H_
+#define SRC_LIB_LIB_H_
 
 #include "channel.h"
+#include "collector.h"
 #include "container.h"
-#include "generator.h"
+#include "controller.h"
 #include "queue.h"
 #include "random.h"
 #include "request.h"
@@ -18,4 +19,4 @@
 #include "timer.h"
 #include "valve.h"
 
-#endif /* LIB_H_ */
+#endif  // SRC_LIB_LIB_H_
