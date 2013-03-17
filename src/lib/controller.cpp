@@ -9,7 +9,12 @@
 
 Controller::Controller()
 {
+    count_work_channel_ = 0;
+}
 
+Controller::Controller(const int count_work_channel)
+{
+    count_work_channel_ = count_work_channel;
 }
 
 Controller::~Controller()
@@ -49,4 +54,17 @@ void Controller::DecTimeAllChannel()
 {
     for (unsigned int i = 0; i < array_channel_.size(); i++)
         array_channel_[i]->DecTime();
+}
+
+void Controller::setCountWorkChannel(const int count_work_channel)
+{
+    count_work_channel_ = count_work_channel;
+}
+
+int Controller::GetCountBusyChannel() const
+{
+    int count_busy_channel = 0;
+    for (unsigned int i = 0; i < array_channel_.size(); i++)
+        if (array_channel_[i]->GetRequest() != NULL) ++count_busy_channel;
+    return count_busy_channel;
 }

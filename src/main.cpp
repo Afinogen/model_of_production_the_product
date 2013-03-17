@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <windows.h>
 #include "function_libsmo.h"
+#include "function.h"
 
 using namespace std;
 
@@ -19,8 +20,19 @@ bool pause = false;
 VOID CALLBACK TimerProc(HWND hWnd, UINT nMsg, UINT nIDEvent, DWORD dwTime)
 {
     if (pause) return;
-
+    //setCursosPosition(0, 0);
+    system("cls");
     StepEmulation();
+    PrintTimer();
+    PrintSourceState();
+
+    if (CheckEndEmulation())
+    {
+        //ClearSMO();
+        //KillTimer(hwnd, hTimer);
+        //hTimer=NULL;
+        PostQuitMessage(0);
+    }
 }
 
 //Главная функция
@@ -41,9 +53,9 @@ int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance,
     //printf("%s\n",buf);
     //scanf("%s", buf);
 
-    InitSMO(10);//CharToInt(buf));
-    PostQuitMessage(0);
-    //hTimer=SetTimer(NULL,0, 50, &TimerProc); //запуск таймера
+    InitSMO(10, 2);    //CharToInt(buf));
+    //PostQuitMessage(0);
+    hTimer = SetTimer(NULL, 0, 50, &TimerProc);  //запуск таймера
 
     //for(int i=0;i<10;i++)
     //printf("%f\n", Random::GetRand(1,5));

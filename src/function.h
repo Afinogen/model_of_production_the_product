@@ -10,11 +10,14 @@
 
 #include <stdlib.h>
 #include <windows.h>
-//#include <iostream>
 
 using namespace std;
 
 //Функция руссификации текста для консоли
 char * Rus(const char *text);
+//Перевод из char* в int
+int CharToInt(const char *str);
+//Установка позиции курсора в консоли
+void setCursosPosition(short x, short y);
 
 #endif /* FUNCTION_H_ */
