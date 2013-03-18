@@ -53,7 +53,7 @@ Valve *Controller::GetValve(const int idx) const
 void Controller::DecTimeAllChannel()
 {
     for (unsigned int i = 0; i < array_channel_.size(); i++)
-        array_channel_[i]->DecTime();
+        if (array_channel_[i]->GetTime() > 0) array_channel_[i]->DecTime();
 }
 
 void Controller::setCountWorkChannel(const int count_work_channel)

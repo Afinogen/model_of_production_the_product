@@ -338,7 +338,7 @@ bool CheckEndEmulation()
 
 void PrintSourceState()
 {
-    printf(Rus("Генераторы\tA\tB\tC\n"));
+    printf(Rus("\nГенераторы\tA\tB\tC\n"));
     printf(Rus("Время ген.\t%i\t%i\t%i\n"), g_source_a->GetTime(),
             g_source_b->GetTime(), g_source_c->GetTime());
     printf(Rus("Кол-во заявок\t%i\t%i\t%i\n"), g_source_a->GetCountGenRequest(),
@@ -348,4 +348,17 @@ void PrintSourceState()
 void PrintTimer()
 {
     printf(Rus("Модельное вермя %i мин\n"), g_system_timer->GetTime());
+}
+
+void PrintChannelState()
+{
+    printf(Rus("\nКаналы\t\t1\t2\t3\t4\t5\t6\t7\n"));
+    printf(Rus("Обработка\t%i\t%i\t%i\t%i\t%i\t%i\t%i\n"),
+            g_controller->GetChannel(0)->GetTime(),
+            g_controller->GetChannel(1)->GetTime(),
+            g_controller->GetChannel(2)->GetTime(),
+            g_controller->GetChannel(3)->GetTime(),
+            g_controller->GetChannel(4)->GetTime(),
+            g_controller->GetChannel(5)->GetTime(),
+            g_controller->GetChannel(6)->GetTime());
 }

@@ -25,6 +25,7 @@ VOID CALLBACK TimerProc(HWND hWnd, UINT nMsg, UINT nIDEvent, DWORD dwTime)
     StepEmulation();
     PrintTimer();
     PrintSourceState();
+    PrintChannelState();
 
     if (CheckEndEmulation())
     {
