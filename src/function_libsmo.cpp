@@ -330,7 +330,7 @@ bool Queue7IsReady()
 bool CheckEndEmulation()
 {
     if ((g_count_piece * 3)
-            == (g_source_a->GetCountGenRequest()
+            <= (g_source_a->GetCountGenRequest()
                     + g_source_b->GetCountGenRequest()
                     + g_source_c->GetCountGenRequest())) return true;
     else return false;
@@ -338,9 +338,11 @@ bool CheckEndEmulation()
 
 void PrintSourceState()
 {
-    printf(Rus("A\tB\tC\n"));
-    printf("%i\t%i\t%i", g_source_a->GetTime(), g_source_b->GetTime(),
-            g_source_c->GetTime());
+    printf(Rus("Генераторы\tA\tB\tC\n"));
+    printf(Rus("Время ген.\t%i\t%i\t%i\n"), g_source_a->GetTime(),
+            g_source_b->GetTime(), g_source_c->GetTime());
+    printf(Rus("Кол-во заявок\t%i\t%i\t%i\n"), g_source_a->GetCountGenRequest(),
+            g_source_b->GetCountGenRequest(), g_source_c->GetCountGenRequest());
 }
 
 void PrintTimer()
