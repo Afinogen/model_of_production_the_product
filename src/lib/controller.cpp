@@ -68,3 +68,4 @@ int Controller::GetCountBusyChannel() const
         if (array_channel_[i]->GetRequest() != NULL) ++count_busy_channel;
     return count_busy_channel;
 }
+

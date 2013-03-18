@@ -71,6 +71,8 @@ bool Queue7IsReady();
 void PrintSourceState();
 //Вывод системного времени
 void PrintTimer();
-//
+//Вывод состояния каналов
 void PrintChannelState();
+//Вывод заявок в собрщике
+void PrintCollectorState();
 #endif /* FUNCTION_LIBSMO_H_ */

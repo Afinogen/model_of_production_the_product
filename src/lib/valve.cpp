@@ -34,5 +34,6 @@ Channel *Valve::GetChannel() const
 
 bool Valve::GetStateChannel() const
 {
-
+    if (control_channel_->GetRequest() != NULL) return true;
+    else return false;
 }

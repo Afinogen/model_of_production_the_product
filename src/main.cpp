@@ -26,7 +26,7 @@ VOID CALLBACK TimerProc(HWND hWnd, UINT nMsg, UINT nIDEvent, DWORD dwTime)
     PrintTimer();
     PrintSourceState();
     PrintChannelState();
-
+    PrintCollectorState();
     if (CheckEndEmulation())
     {
         //ClearSMO();

@@ -37,13 +37,27 @@ void InitValveVsChannel()
 {
     g_controller->CreateChannel(7);
     g_controller->CreateValve(7);
+
     g_controller->GetValve(0)->setChannel(g_controller->GetChannel(0));
+    g_controller->GetChannel(0)->setRandomTime(12, 18);
+
     g_controller->GetValve(1)->setChannel(g_controller->GetChannel(1));
+    g_controller->GetChannel(1)->setRandomTime(15, 21);
+
     g_controller->GetValve(2)->setChannel(g_controller->GetChannel(2));
+    g_controller->GetChannel(2)->setRandomTime(3, 7);
+
     g_controller->GetValve(3)->setChannel(g_controller->GetChannel(3));
+    g_controller->GetChannel(3)->setRandomTime(3, 7);
+
     g_controller->GetValve(4)->setChannel(g_controller->GetChannel(4));
+    g_controller->GetChannel(4)->setRandomTime(8, 12);
+
     g_controller->GetValve(5)->setChannel(g_controller->GetChannel(5));
+    g_controller->GetChannel(5)->setRandomTime(11, 19);
+
     g_controller->GetValve(6)->setChannel(g_controller->GetChannel(6));
+    g_controller->GetChannel(6)->setRandomTime(5, 11);
 }
 
 void InitSMO(const int count_piece, const int count_work)
@@ -97,11 +111,17 @@ void ClearSMO()
 void StepEmulation()
 {
     g_system_timer->IncTime();
-    g_source_a->DecTime();
-    g_source_b->DecTime();
-    g_source_c->DecTime();
-    g_controller->DecTimeAllChannel();
-    GenerationRequests();
+    if ((g_count_piece * 3)
+            >= (g_source_a->GetCountGenRequest()
+                    + g_source_b->GetCountGenRequest()
+                    + g_source_c->GetCountGenRequest()))
+    {
+        g_source_a->DecTime();
+        g_source_b->DecTime();
+        g_source_c->DecTime();
+        GenerationRequests();
+    }
+    if (g_controller->GetCountBusyChannel() > 0) g_controller->DecTimeAllChannel();
     MovingRequestFromChannelToQueue();
     MovingRequestFromQueueToChannel();
 }
@@ -144,43 +164,50 @@ void GenerationRequests()
 void MovingRequestFromChannelToQueue()
 {
     //Канал 1
-    if (g_controller->GetChannel(0)->GetTime() == 0)
+    if (g_controller->GetChannel(0)->GetTime() == 0
+            && g_controller->GetValve(0)->GetStateChannel())
     {
         g_queue3->AddRequest(g_controller->GetChannel(0)->GetRequest());
         g_controller->GetChannel(0)->DeleteRequest();
     }
     //Канал 2
-    if (g_controller->GetChannel(1)->GetTime() == 0)
+    if (g_controller->GetChannel(1)->GetTime() == 0
+            && g_controller->GetValve(1)->GetStateChannel())
     {
         g_queue4->AddRequest(g_controller->GetChannel(1)->GetRequest());
         g_controller->GetChannel(1)->DeleteRequest();
     }
     //Канал 3
-    if (g_controller->GetChannel(2)->GetTime() == 0)
+    if (g_controller->GetChannel(2)->GetTime() == 0
+            && g_controller->GetValve(2)->GetStateChannel())
     {
         g_queue5->AddRequest(g_controller->GetChannel(2)->GetRequest());
         g_controller->GetChannel(2)->DeleteRequest();
     }
     //канал 4
-    if (g_controller->GetChannel(3)->GetTime() == 0)
+    if (g_controller->GetChannel(3)->GetTime() == 0
+            && g_controller->GetValve(3)->GetStateChannel())
     {
         g_queue6->AddRequest(g_controller->GetChannel(3)->GetRequest());
         g_controller->GetChannel(3)->DeleteRequest();
     }
     //Канал 5
-    if (g_controller->GetChannel(4)->GetTime() == 0)
+    if (g_controller->GetChannel(4)->GetTime() == 0
+            && g_controller->GetValve(4)->GetStateChannel())
     {
         g_queue6->AddRequest(g_controller->GetChannel(4)->GetRequest());
         g_controller->GetChannel(4)->DeleteRequest();
     }
     //Канал 6
-    if (g_controller->GetChannel(5)->GetTime() == 0)
+    if (g_controller->GetChannel(5)->GetTime() == 0
+            && g_controller->GetValve(5)->GetStateChannel())
     {
         g_queue7->AddRequest(g_controller->GetChannel(5)->GetRequest());
         g_controller->GetChannel(5)->DeleteRequest();
     }
     //Канал 7
-    if (g_controller->GetChannel(6)->GetTime() == 0)
+    if (g_controller->GetChannel(6)->GetTime() == 0
+            && g_controller->GetValve(6)->GetStateChannel())
     {
         g_collector->AddRequest(g_controller->GetChannel(6)->GetRequest());
         g_controller->GetChannel(6)->DeleteRequest();
@@ -332,7 +359,8 @@ bool CheckEndEmulation()
     if ((g_count_piece * 3)
             <= (g_source_a->GetCountGenRequest()
                     + g_source_b->GetCountGenRequest()
-                    + g_source_c->GetCountGenRequest())) return true;
+                    + g_source_c->GetCountGenRequest())
+            && g_controller->GetCountBusyChannel() == 0) return true;
     else return false;
 }
 
@@ -361,4 +389,9 @@ void PrintChannelState()
             g_controller->GetChannel(4)->GetTime(),
             g_controller->GetChannel(5)->GetTime(),
             g_controller->GetChannel(6)->GetTime());
+}
+
+void PrintCollectorState()
+{
+    printf(Rus("\nЗаявок в сборщике: %i\n"), g_collector->GetSizeContainer());
 }
