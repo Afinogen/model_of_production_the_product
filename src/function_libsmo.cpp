@@ -18,7 +18,7 @@ Source *g_source_h;  //Генератор заявок типа H
 
 Timer *g_system_timer;  //Системное время
 
-Queue *g_queue1;
+Queue *g_queue1;  //очереди
 Queue *g_queue2;
 Queue *g_queue3;
 Queue *g_queue4;
@@ -26,9 +26,9 @@ Queue *g_queue5;
 Queue *g_queue6;
 Queue *g_queue7;
 
-Controller *g_controller;
+Controller *g_controller;  //Контроллер
 
-Collector *g_collector;
+Collector *g_collector;  //Сборщик
 
 int g_count_piece;
 int g_count_work;
@@ -143,7 +143,7 @@ void GenerationRequests()
                 g_source_b->GetNewRequest(g_system_timer->GetTime()));
         g_queue2->AddRequest(
                 g_source_b->GetNewRequest(g_system_timer->GetTime()));
-        g_queue3->AddRequest(
+        g_queue7->AddRequest(
                 g_source_b->GetNewRequest(g_system_timer->GetTime()));
         g_queue5->AddRequest(
                 g_source_b->GetNewRequest(g_system_timer->GetTime()));
@@ -154,7 +154,7 @@ void GenerationRequests()
     {
         g_queue2->AddRequest(
                 g_source_c->GetNewRequest(g_system_timer->GetTime()));
-        g_queue5->AddRequest(
+        g_queue7->AddRequest(
                 g_source_c->GetNewRequest(g_system_timer->GetTime()));
         g_source_c->GenTime();
     }
@@ -249,7 +249,7 @@ void MovingRequestFromQueueToChannel()
             && g_controller->GetValve(2)->GetStateChannel() == false)
     {
         g_controller->GetChannel(2)->setRequest(g_queue3->GetRequest(0));
-        g_queue3->DeleteRequest(2);
+        g_queue3->DeleteRequest(0);
         --tmp_count_work;
     }
     if (tmp_count_work == 0) return;
@@ -258,7 +258,7 @@ void MovingRequestFromQueueToChannel()
             && g_controller->GetValve(3)->GetStateChannel() == false)
     {
         g_controller->GetChannel(3)->setRequest(g_queue4->GetRequest(0));
-        g_queue4->DeleteRequest(3);
+        g_queue4->DeleteRequest(0);
         --tmp_count_work;
     }
     if (tmp_count_work == 0) return;
@@ -319,39 +319,39 @@ bool Queue2IsReady()
 bool Queue3IsReady()
 {
     //деталь D
-    if (g_queue1->GetCountRequestFromType(3) >= 1) return true;
+    if (g_queue3->GetCountRequestFromType(3) >= 1) return true;
     else return false;
 }
 //Проверка очереди 4, в ней должны присутствовать E, для передачи в канал
 bool Queue4IsReady()
 {
     //деталь E
-    if (g_queue1->GetCountRequestFromType(4) >= 1) return true;
+    if (g_queue4->GetCountRequestFromType(4) >= 1) return true;
     else return false;
 }
 //Проверка очереди 5, в ней должны присутствовать D B, для передачи в канал
 bool Queue5IsReady()
 {
     //деталь D и B
-    if (g_queue1->GetCountRequestFromType(1) >= 1
-            && g_queue1->GetCountRequestFromType(3) >= 1) return true;
+    if (g_queue5->GetCountRequestFromType(1) >= 1
+            && g_queue5->GetCountRequestFromType(3) >= 1) return true;
     else return false;
 }
 //Проверка очереди 6, в ней должны присутствовать F E, для передачи в канал
 bool Queue6IsReady()
 {
     //деталь F и E
-    if (g_queue1->GetCountRequestFromType(5) >= 1
-            && g_queue1->GetCountRequestFromType(4) >= 1) return true;
+    if (g_queue6->GetCountRequestFromType(5) >= 1
+            && g_queue6->GetCountRequestFromType(4) >= 1) return true;
     else return false;
 }
 //Проверка очереди 7, в ней должны присутствовать G B 2C, для передачи в канал
 bool Queue7IsReady()
 {
     //деталь G B 2C
-    if (g_queue1->GetCountRequestFromType(6) >= 1
-            && g_queue1->GetCountRequestFromType(1) >= 1
-            && g_queue1->GetCountRequestFromType(2) >= 2) return true;
+    if (g_queue7->GetCountRequestFromType(6) >= 1
+            && g_queue7->GetCountRequestFromType(1) >= 1
+            && g_queue7->GetCountRequestFromType(2) >= 2) return true;
     else return false;
 }
 bool CheckEndEmulation()
@@ -361,6 +361,7 @@ bool CheckEndEmulation()
                     + g_source_b->GetCountGenRequest()
                     + g_source_c->GetCountGenRequest())
             && g_controller->GetCountBusyChannel() == 0) return true;
+    //if (g_system_timer->GetTime() == 1000) return true;
     else return false;
 }
 
@@ -381,6 +382,14 @@ void PrintTimer()
 void PrintChannelState()
 {
     printf(Rus("\nКаналы\t\t1\t2\t3\t4\t5\t6\t7\n"));
+    printf(Rus("Состояние\t%i\t%i\t%i\t%i\t%i\t%i\t%i\n"),
+            g_controller->GetValve(0)->GetStateChannel(),
+            g_controller->GetValve(1)->GetStateChannel(),
+            g_controller->GetValve(2)->GetStateChannel(),
+            g_controller->GetValve(3)->GetStateChannel(),
+            g_controller->GetValve(4)->GetStateChannel(),
+            g_controller->GetValve(5)->GetStateChannel(),
+            g_controller->GetValve(6)->GetStateChannel());
     printf(Rus("Обработка\t%i\t%i\t%i\t%i\t%i\t%i\t%i\n"),
             g_controller->GetChannel(0)->GetTime(),
             g_controller->GetChannel(1)->GetTime(),
@@ -394,4 +403,65 @@ void PrintChannelState()
 void PrintCollectorState()
 {
     printf(Rus("\nЗаявок в сборщике: %i\n"), g_collector->GetSizeContainer());
+}
+
+void PrintQueueState()
+{
+    printf(Rus("\nОчередь\t\t1\t2\t3\t4\t5\t6\t7\n"));
+    printf(Rus("Готовность\t%i\t%i\t%i\t%i\t%i\t%i\t%i\n"), Queue1IsReady(),
+            Queue2IsReady(), Queue3IsReady(), Queue4IsReady(), Queue5IsReady(),
+            Queue6IsReady(), Queue7IsReady());
+    printf(Rus("Кол-во заявок\t%i\t%i\t%i\t%i\t%i\t%i\t%i\n"),
+            g_queue1->GetSizeContainer(), g_queue2->GetSizeContainer(),
+            g_queue3->GetSizeContainer(), g_queue4->GetSizeContainer(),
+            g_queue5->GetSizeContainer(), g_queue6->GetSizeContainer(),
+            g_queue7->GetSizeContainer());
+    int count_request_a = 0;
+    int count_request_b = 0;
+    int count_request_c = 0;
+    int count_request_d = 0;
+    int count_request_e = 0;
+    int count_request_f = 0;
+    int count_request_g = 0;
+    for (int i = 0; i < g_queue1->GetSizeContainer(); i++)
+    {
+        if (g_queue1->GetRequest(i)->GetType() == 0) ++count_request_a;
+        if (g_queue1->GetRequest(i)->GetType() == 1) ++count_request_b;
+    }
+    for (int i = 0; i < g_queue2->GetSizeContainer(); i++)
+    {
+        if (g_queue2->GetRequest(i)->GetType() == 0) ++count_request_a;
+        if (g_queue2->GetRequest(i)->GetType() == 1) ++count_request_b;
+        if (g_queue2->GetRequest(i)->GetType() == 2) ++count_request_c;
+    }
+    for (int i = 0; i < g_queue3->GetSizeContainer(); i++)
+    {
+        if (g_queue3->GetRequest(i)->GetType() == 3) ++count_request_d;
+    }
+    for (int i = 0; i < g_queue4->GetSizeContainer(); i++)
+    {
+        if (g_queue4->GetRequest(i)->GetType() == 4) ++count_request_e;
+    }
+    for (int i = 0; i < g_queue5->GetSizeContainer(); i++)
+    {
+        if (g_queue5->GetRequest(i)->GetType() == 3) ++count_request_d;
+        if (g_queue5->GetRequest(i)->GetType() == 1) ++count_request_b;
+    }
+    for (int i = 0; i < g_queue6->GetSizeContainer(); i++)
+    {
+        if (g_queue6->GetRequest(i)->GetType() == 5) ++count_request_f;
+        if (g_queue6->GetRequest(i)->GetType() == 4) ++count_request_e;
+    }
+    for (int i = 0; i < g_queue7->GetSizeContainer(); i++)
+    {
+        if (g_queue7->GetRequest(i)->GetType() == 0) ++count_request_a;
+        if (g_queue7->GetRequest(i)->GetType() == 1) ++count_request_b;
+        if (g_queue7->GetRequest(i)->GetType() == 2) ++count_request_c;
+        if (g_queue7->GetRequest(i)->GetType() == 6) ++count_request_g;
+    }
+    printf(
+            Rus(
+                    "Заявка A: %i\nЗаявка B: %i\nЗаявка C: %i\nЗаявка D: %i\nЗаявка E: %i\nЗаявка F: %i\nЗаявка G: %i\n"),
+            count_request_a, count_request_b, count_request_c, count_request_d,
+            count_request_e, count_request_f, count_request_g);
 }

@@ -75,4 +75,6 @@ void PrintTimer();
 void PrintChannelState();
 //Вывод заявок в собрщике
 void PrintCollectorState();
+//Вывод кол-ва заявок в очереди
+void PrintQueueState();
 #endif /* FUNCTION_LIBSMO_H_ */
