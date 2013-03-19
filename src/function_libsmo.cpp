@@ -285,7 +285,7 @@ void MovingRequestFromQueueToChannel()
     }
     if (tmp_count_work == 0) return;
     //Очередь 7
-    if (Queue2IsReady()
+    if (Queue7IsReady()
             && g_controller->GetValve(6)->GetStateChannel() == false)
     {
         g_queue7->DeleteRequestFromType(6);
@@ -360,7 +360,9 @@ bool CheckEndEmulation()
             <= (g_source_a->GetCountGenRequest()
                     + g_source_b->GetCountGenRequest()
                     + g_source_c->GetCountGenRequest())
-            && g_controller->GetCountBusyChannel() == 0) return true;
+            && g_controller->GetCountBusyChannel() == 0 && !Queue1IsReady()
+            && !Queue2IsReady() && !Queue3IsReady() && !Queue4IsReady()
+            && !Queue5IsReady() && !Queue6IsReady() && !Queue7IsReady()) return true;
     //if (g_system_timer->GetTime() == 1000) return true;
     else return false;
 }

@@ -28,6 +28,7 @@ VOID CALLBACK TimerProc(HWND hWnd, UINT nMsg, UINT nIDEvent, DWORD dwTime)
     PrintQueueState();
     PrintChannelState();
     PrintCollectorState();
+
     if (CheckEndEmulation())
     {
         //ClearSMO();
@@ -57,7 +58,7 @@ int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance,
 
     InitSMO(50, 2);    //CharToInt(buf));
     //PostQuitMessage(0);
-    hTimer = SetTimer(NULL, 0, 50, &TimerProc);  //запуск таймера
+    hTimer = SetTimer(NULL, 0, 100, &TimerProc);  //запуск таймера
 
     //for(int i=0;i<10;i++)
     //printf("%f\n", Random::GetRand(1,5));
