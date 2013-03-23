@@ -19,12 +19,12 @@ Controller::Controller(const int count_work_channel)
 
 Controller::~Controller()
 {
-    for (unsigned int i = 0; i < array_channel_.size(); i++)
+    /*for (unsigned int i = 0; i < array_channel_.size(); i++)
         delete array_channel_[i];
     array_channel_.clear();
     for (unsigned int i = 0; i < array_valve_.size(); i++)
         delete array_valve_[i];
-    array_valve_.clear();
+    array_valve_.clear();*/
 }
 
 void Controller::CreateChannel(const int count_channel)

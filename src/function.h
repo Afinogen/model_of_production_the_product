@@ -21,4 +21,7 @@ int CharToInt(const char *str);
 void setCursosPosition(short x, short y);
 //Перевод из int в char*
 char *IntToChar(int num);
+//Узнаем откуда было запушено приложение
+bool isConsole();
+
 #endif /* FUNCTION_H_ */

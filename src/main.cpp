@@ -21,8 +21,11 @@ bool pause = false;
 VOID CALLBACK TimerProc(HWND hWnd, UINT nMsg, UINT nIDEvent, DWORD dwTime)
 {
     if (pause) return;
-    if (g_system_timer->GetTime() == 1) system("cls");  //При первом запуске бывает абракадабра на экране, необходима полная очистка
-    setCursosPosition(0, 0);
+    if (g_system_timer->GetTime() == 1 && isConsole())
+    {
+        system("cls");  //При первом запуске бывает абракадабра на экране, необходима полная очистка
+        setCursosPosition(0, 0);
+    }
     StepEmulation();
     PrintTimer();
     PrintSourceState();
@@ -47,14 +50,9 @@ int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance,
 {
     MSG messages; /* Here messages to the application are saved */
 
-    CONSOLE_SCREEN_BUFFER_INFO info;  // Для получения текущей позиции курсора
-
     g_instance = hThisInstance;
 
-    HANDLE hCon = GetStdHandle(STD_OUTPUT_HANDLE);  // получение потока вывода
-    GetConsoleScreenBufferInfo(hCon, &info);  // Получаем информацию о позиции курсора
-
-    if (info.dwCursorPosition.Y == 0) FreeConsole();
+    if (!isConsole()) FreeConsole();
     else
     {
         system("cls");
@@ -66,16 +64,6 @@ int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance,
     CreateButton();
     ShowWindow(g_hwnd_form, nFunsterStil);
 
-    //char buf[10] = {'\0'};
-    //printf("%s\n",buf);
-    //scanf("%s", buf);
-
-    //InitSMO(50, 2);    //CharToInt(buf));
-    //PostQuitMessage(0);
-    //hTimer = SetTimer(NULL, 0, 100, &TimerProc);  //запуск таймера
-
-    //for(int i=0;i<10;i++)
-    //printf("%f\n", Random::GetRand(1,5));
     /* Run the message loop. It will run until GetMessage() returns 0 */
     while (GetMessage(&messages, NULL, 0, 0))
     {
@@ -113,7 +101,7 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam,
                 GetWindowText(g_hwnd_edit_work_count, str_work_count, 255);
                 InitSMO(CharToInt(str_request_count),
                         CharToInt(str_work_count));
-                hTimer = SetTimer(NULL, 0, 100, &TimerProc);
+                hTimer = SetTimer(hwnd, 1, 100, &TimerProc);
                 SetWindowText(g_hwnd_button_start_pause, "Пауза");
             }
             else if ((HWND) lParam == g_hwnd_button_start_pause&& hTimer!=NULL)
