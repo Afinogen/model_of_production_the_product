@@ -135,7 +135,6 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam,
                 if (hTimer != NULL)
                 {
                     KillTimer(hwnd, hTimer);
-                    Sleep(100);
                     hTimer = NULL;
                     ClearSMO();
                     pause = false;
@@ -162,7 +161,8 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam,
             if (hTimer != NULL)
             {
                 KillTimer(hwnd, hTimer);
-                ClearSMO();
+                //hTimer = NULL;
+                //ClearSMO();
             }
             PostQuitMessage(0);
         break;
@@ -170,7 +170,8 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam,
             if (hTimer != NULL)
             {
                 KillTimer(hwnd, hTimer);
-                ClearSMO();
+                //hTimer = NULL;
+                //ClearSMO();
             }
 
             PostQuitMessage(0); /* send a WM_QUIT to the message queue */
