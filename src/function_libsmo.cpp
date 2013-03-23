@@ -370,8 +370,22 @@ bool CheckEndEmulation()
 void PrintSourceState()
 {
     printf(Rus("\nГенераторы\tA\tB\tC\n"));
+    string str;
+    str.append(IntToChar(g_source_a->GetTime()));
+    str.append("\t");
+    str.append(IntToChar(g_source_b->GetTime()));
+    str.append("\t");
+    str.append(IntToChar(g_source_c->GetTime()));
+    SetWindowText(g_hwnd_time_gen_sourse, str.c_str());
     printf(Rus("Время ген.\t%i\t%i\t%i\n"), g_source_a->GetTime(),
             g_source_b->GetTime(), g_source_c->GetTime());
+    str = "";
+    str.append(IntToChar(g_source_a->GetCountGenRequest()));
+    str.append("\t");
+    str.append(IntToChar(g_source_b->GetCountGenRequest()));
+    str.append("\t");
+    str.append(IntToChar(g_source_c->GetCountGenRequest()));
+    SetWindowText(g_hwnd_time_gen_request, str.c_str());
     printf(Rus("Кол-во заявок\t%i\t%i\t%i\n"), g_source_a->GetCountGenRequest(),
             g_source_b->GetCountGenRequest(), g_source_c->GetCountGenRequest());
 }
@@ -379,11 +393,30 @@ void PrintSourceState()
 void PrintTimer()
 {
     printf(Rus("Модельное вермя %i мин\n"), g_system_timer->GetTime());
+    string str;
+    str.append(IntToChar(g_system_timer->GetTime()));
+    str.append(" мин");
+    SetWindowText(g_hwnd_sys_time, str.c_str());
 }
 
 void PrintChannelState()
 {
     printf(Rus("\nКаналы\t\t1\t2\t3\t4\t5\t6\t7\n"));
+    string str = "Состояние\t";
+    str.append(IntToChar(g_controller->GetValve(0)->GetStateChannel()));
+    str.append("\t");
+    str.append(IntToChar(g_controller->GetValve(1)->GetStateChannel()));
+    str.append("\t");
+    str.append(IntToChar(g_controller->GetValve(2)->GetStateChannel()));
+    str.append("\t");
+    str.append(IntToChar(g_controller->GetValve(3)->GetStateChannel()));
+    str.append("\t");
+    str.append(IntToChar(g_controller->GetValve(4)->GetStateChannel()));
+    str.append("\t");
+    str.append(IntToChar(g_controller->GetValve(5)->GetStateChannel()));
+    str.append("\t");
+    str.append(IntToChar(g_controller->GetValve(6)->GetStateChannel()));
+    SetWindowText(g_hwnd_channel_info, str.c_str());
     printf(Rus("Состояние\t%i\t%i\t%i\t%i\t%i\t%i\t%i\n"),
             g_controller->GetValve(0)->GetStateChannel(),
             g_controller->GetValve(1)->GetStateChannel(),
@@ -392,6 +425,22 @@ void PrintChannelState()
             g_controller->GetValve(4)->GetStateChannel(),
             g_controller->GetValve(5)->GetStateChannel(),
             g_controller->GetValve(6)->GetStateChannel());
+
+    str = "Обработка\t";
+    str.append(IntToChar(g_controller->GetChannel(0)->GetTime()));
+    str.append("\t");
+    str.append(IntToChar(g_controller->GetChannel(1)->GetTime()));
+    str.append("\t");
+    str.append(IntToChar(g_controller->GetChannel(2)->GetTime()));
+    str.append("\t");
+    str.append(IntToChar(g_controller->GetChannel(3)->GetTime()));
+    str.append("\t");
+    str.append(IntToChar(g_controller->GetChannel(4)->GetTime()));
+    str.append("\t");
+    str.append(IntToChar(g_controller->GetChannel(5)->GetTime()));
+    str.append("\t");
+    str.append(IntToChar(g_controller->GetChannel(6)->GetTime()));
+    SetWindowText(g_hwnd_channel_time, str.c_str());
     printf(Rus("Обработка\t%i\t%i\t%i\t%i\t%i\t%i\t%i\n"),
             g_controller->GetChannel(0)->GetTime(),
             g_controller->GetChannel(1)->GetTime(),
@@ -405,14 +454,48 @@ void PrintChannelState()
 void PrintCollectorState()
 {
     printf(Rus("\nЗаявок в сборщике: %i\n"), g_collector->GetSizeContainer());
+    string str = "Заявок в сборщике: \t";
+    str.append(IntToChar(g_collector->GetSizeContainer()));
+    SetWindowText(g_hwnd_count_request_collection, str.c_str());
 }
 
 void PrintQueueState()
 {
     printf(Rus("\nОчередь\t\t1\t2\t3\t4\t5\t6\t7\n"));
+
+    string str = "Готовность\t";
+    str.append(IntToChar(Queue1IsReady()));
+    str.append("\t");
+    str.append(IntToChar(Queue2IsReady()));
+    str.append("\t");
+    str.append(IntToChar(Queue3IsReady()));
+    str.append("\t");
+    str.append(IntToChar(Queue4IsReady()));
+    str.append("\t");
+    str.append(IntToChar(Queue5IsReady()));
+    str.append("\t");
+    str.append(IntToChar(Queue6IsReady()));
+    str.append("\t");
+    str.append(IntToChar(Queue7IsReady()));
+    SetWindowText(g_hwnd_redy_queue, str.c_str());
     printf(Rus("Готовность\t%i\t%i\t%i\t%i\t%i\t%i\t%i\n"), Queue1IsReady(),
             Queue2IsReady(), Queue3IsReady(), Queue4IsReady(), Queue5IsReady(),
             Queue6IsReady(), Queue7IsReady());
+    str = "Кол-во заявок\t";
+    str.append(IntToChar(g_queue1->GetSizeContainer()));
+    str.append("\t");
+    str.append(IntToChar(g_queue2->GetSizeContainer()));
+    str.append("\t");
+    str.append(IntToChar(g_queue3->GetSizeContainer()));
+    str.append("\t");
+    str.append(IntToChar(g_queue4->GetSizeContainer()));
+    str.append("\t");
+    str.append(IntToChar(g_queue5->GetSizeContainer()));
+    str.append("\t");
+    str.append(IntToChar(g_queue6->GetSizeContainer()));
+    str.append("\t");
+    str.append(IntToChar(g_queue7->GetSizeContainer()));
+    SetWindowText(g_hwnd_count_request_queue, str.c_str());
     printf(Rus("Кол-во заявок\t%i\t%i\t%i\t%i\t%i\t%i\t%i\n"),
             g_queue1->GetSizeContainer(), g_queue2->GetSizeContainer(),
             g_queue3->GetSizeContainer(), g_queue4->GetSizeContainer(),
@@ -461,6 +544,21 @@ void PrintQueueState()
         if (g_queue7->GetRequest(i)->GetType() == 2) ++count_request_c;
         if (g_queue7->GetRequest(i)->GetType() == 6) ++count_request_g;
     }
+    str = "Заявка A:\t";
+    str.append(IntToChar(count_request_a));
+    str.append("\nЗаявка B:\t");
+    str.append(IntToChar(count_request_b));
+    str.append("\nЗаявка C:\t");
+    str.append(IntToChar(count_request_c));
+    str.append("\nЗаявка D:\t");
+    str.append(IntToChar(count_request_d));
+    str.append("\nЗаявка E:\t");
+    str.append(IntToChar(count_request_e));
+    str.append("\nЗаявка F:\t");
+    str.append(IntToChar(count_request_f));
+    str.append("\nЗаявка G:\t");
+    str.append(IntToChar(count_request_g));
+    SetWindowText(g_hwnd_all_request_info, str.c_str());
     printf(
             Rus(
                     "Заявка A: %i\nЗаявка B: %i\nЗаявка C: %i\nЗаявка D: %i\nЗаявка E: %i\nЗаявка F: %i\nЗаявка G: %i\n"),

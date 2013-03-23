@@ -12,6 +12,15 @@ HWND g_hwnd_edit_request_count;
 HWND g_hwnd_edit_work_count;
 HWND g_hwnd_button_start_pause;
 HWND g_hwnd_button_stop;
+HWND g_hwnd_time_gen_sourse;
+HWND g_hwnd_time_gen_request;
+HWND g_hwnd_sys_time;
+HWND g_hwnd_redy_queue;
+HWND g_hwnd_count_request_queue;
+HWND g_hwnd_all_request_info;
+HWND g_hwnd_channel_info;
+HWND g_hwnd_channel_time;
+HWND g_hwnd_count_request_collection;
 HINSTANCE g_instance;
 
 LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
@@ -81,6 +90,53 @@ void CreateLabel()
     CreateWindowEx(0, "STATIC", "Введите кол-во рабочих",
             ES_LEFT | WS_VISIBLE | WS_CHILD, 10, 40, 240, 20, g_hwnd_form, NULL,
             g_instance, NULL);
+    CreateWindowEx(0, "STATIC", "Модельное время ",
+            ES_LEFT | WS_VISIBLE | WS_CHILD, 10, 120, 240, 20, g_hwnd_form,
+            NULL, g_instance, NULL);
+    g_hwnd_sys_time = CreateWindowEx(0, "STATIC", "0 мин",
+            ES_LEFT | WS_VISIBLE | WS_CHILD, 140, 120, 100, 20, g_hwnd_form,
+            NULL, g_instance, NULL);
+    CreateWindowEx(0, "STATIC", "Генераторы\tА\tВ\tС\nВремя ген.\t",
+            ES_LEFT | WS_VISIBLE | WS_CHILD, 10, 140, 240, 20, g_hwnd_form,
+            NULL, g_instance, NULL);
+    CreateWindowEx(0, "STATIC", "Время ген.\t", ES_LEFT | WS_VISIBLE | WS_CHILD,
+            10, 160, 240, 20, g_hwnd_form, NULL, g_instance, NULL);
+    g_hwnd_time_gen_sourse = CreateWindowEx(0, "STATIC", "0\t0\t0",
+            ES_LEFT | WS_VISIBLE | WS_CHILD, 120, 160, 240, 20, g_hwnd_form,
+            NULL, g_instance, NULL);
+    CreateWindowEx(0, "STATIC", "Кол-во заявок\t",
+            ES_LEFT | WS_VISIBLE | WS_CHILD, 10, 180, 240, 20, g_hwnd_form,
+            NULL, g_instance, NULL);
+    g_hwnd_time_gen_request = CreateWindowEx(0, "STATIC", "0\t0\t0",
+            ES_LEFT | WS_VISIBLE | WS_CHILD, 120, 180, 240, 20, g_hwnd_form,
+            NULL, g_instance, NULL);
+    CreateWindowEx(0, "STATIC", "Очередь\t1\t2\t3\t4\t5\t6\t7",
+            ES_LEFT | WS_VISIBLE | WS_CHILD, 10, 210, 540, 20, g_hwnd_form,
+            NULL, g_instance, NULL);
+    g_hwnd_redy_queue = CreateWindowEx(0, "STATIC",
+            "Готовность\t0\t0\t0\t0\t0\t0\t0", ES_LEFT | WS_VISIBLE | WS_CHILD,
+            10, 230, 540, 20, g_hwnd_form, NULL, g_instance, NULL);
+    g_hwnd_count_request_queue = CreateWindowEx(0, "STATIC",
+            "Кол-во заявок\t0\t0\t0\t0\t0\t0\t0",
+            ES_LEFT | WS_VISIBLE | WS_CHILD, 10, 250, 540, 20, g_hwnd_form,
+            NULL, g_instance, NULL);
+    g_hwnd_all_request_info =
+            CreateWindowEx(0, "STATIC",
+                    "Заявка A:\t0\nЗаявка B:\t0\nЗаявка C:\t0\nЗаявка D:\t0\nЗаявка E:\t0\nЗаявка F:\t0\nЗаявка G:\t0",
+                    ES_LEFT | WS_VISIBLE | WS_CHILD, 10, 270, 150, 120,
+                    g_hwnd_form, NULL, g_instance, NULL);
+    CreateWindowEx(0, "STATIC", "Каналы\t\t1\t2\t3\t4\t5\t6\t7",
+            ES_LEFT | WS_VISIBLE | WS_CHILD, 10, 390, 500, 20, g_hwnd_form,
+            NULL, g_instance, NULL);
+    g_hwnd_channel_info = CreateWindowEx(0, "STATIC",
+            "Состояние\t0\t0\t0\t0\t0\t0\t0", ES_LEFT | WS_VISIBLE | WS_CHILD,
+            10, 410, 500, 20, g_hwnd_form, NULL, g_instance, NULL);
+    g_hwnd_channel_time = CreateWindowEx(0, "STATIC",
+            "Обработка\t0\t0\t0\t0\t0\t0\t0", ES_LEFT | WS_VISIBLE | WS_CHILD,
+            10, 430, 500, 20, g_hwnd_form, NULL, g_instance, NULL);
+    g_hwnd_count_request_collection = CreateWindowEx(0, "STATIC",
+            "Заявок в сборщике:\t0", ES_LEFT | WS_VISIBLE | WS_CHILD, 10, 450,
+            240, 20, g_hwnd_form, NULL, g_instance, NULL);
 }
 
 void CreateButton()
@@ -89,6 +145,6 @@ void CreateButton()
             BS_PUSHBUTTON | WS_VISIBLE | WS_CHILD | WS_TABSTOP, 20, 70, 170, 30,
             g_hwnd_form, NULL, g_instance, NULL);
     g_hwnd_button_stop = CreateWindowEx(0, "BUTTON", "Стоп",
-                BS_PUSHBUTTON | WS_VISIBLE | WS_CHILD | WS_TABSTOP, 200, 70, 170, 30,
-                g_hwnd_form, NULL, g_instance, NULL);
+            BS_PUSHBUTTON | WS_VISIBLE | WS_CHILD | WS_TABSTOP, 200, 70, 170,
+            30, g_hwnd_form, NULL, g_instance, NULL);
 }

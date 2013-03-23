@@ -37,7 +37,7 @@ VOID CALLBACK TimerProc(HWND hWnd, UINT nMsg, UINT nIDEvent, DWORD dwTime)
         ClearSMO();
         pause = false;
         SetWindowText(g_hwnd_button_start_pause, "Старт");
-        PostQuitMessage(0);
+        //PostQuitMessage(0);
     }
 }
 

@@ -9,8 +9,11 @@
 #define FUNCTION_LIBSMO_H_
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string>
 #include "lib/lib.h"
 #include "function.h"
+#include "form_control.h"
 
 extern Source *g_source_a;  //Генератор заявок типа А
 extern Source *g_source_b;  //Генератор заявок типа В

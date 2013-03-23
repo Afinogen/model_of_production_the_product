@@ -19,5 +19,6 @@ char * Rus(const char *text);
 int CharToInt(const char *str);
 //Установка позиции курсора в консоли
 void setCursosPosition(short x, short y);
-
+//Перевод из int в char*
+char *IntToChar(int num);
 #endif /* FUNCTION_H_ */

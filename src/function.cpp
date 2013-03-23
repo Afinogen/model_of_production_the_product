@@ -20,7 +20,13 @@ int CharToInt(const char *str)
 {
     return atoi(str);
 }
-
+//Перевод из int в char*
+char *IntToChar(int num)
+{
+    char name[50]={'\0'};
+    itoa(num,name,10);
+    return name;
+}
 //Установка позиции курсора в консоли
 void setCursosPosition(short x, short y)
 {
