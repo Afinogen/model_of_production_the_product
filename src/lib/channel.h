@@ -13,20 +13,21 @@
 #include "request.h"
 #include "timer.h"
 
+// ласс канала
 class Channel: public Timer
 {
     public:
         Channel();
         Channel(const int rand_a, const int rand_b);
         ~Channel();
-        void setRequest(Request *request);
-        void DeleteRequest();
-        void GenTime();
-        Request *GetRequest() const;
-        void setRandomTime(const int rand_a, const int rand_b);
+        void setRequest(Request *request);  //установка за€вки на обработку
+        void DeleteRequest();  //удаление за€вки из канала
+        void GenTime();  //√енераци€ времени обработки
+        Request *GetRequest() const;  //«а€вка
+        void setRandomTime(const int rand_a, const int rand_b);  //”становка границ рандома
     private:
-        Request *processes_request_;
-        int rand_a_;
+        Request *processes_request_;  //«а€вка дл€ обработки
+        int rand_a_;  //границы рандома времени обработки
         int rand_b_;
 };
 

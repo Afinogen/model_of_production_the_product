@@ -7,24 +7,25 @@
 
 #include "form_control.h"
 
-HWND g_hwnd_form; /* This is the handle for our window */
-HWND g_hwnd_edit_request_count;
-HWND g_hwnd_edit_work_count;
-HWND g_hwnd_button_start_pause;
-HWND g_hwnd_button_stop;
-HWND g_hwnd_time_gen_sourse;
-HWND g_hwnd_time_gen_request;
-HWND g_hwnd_sys_time;
-HWND g_hwnd_redy_queue;
-HWND g_hwnd_count_request_queue;
-HWND g_hwnd_all_request_info;
-HWND g_hwnd_channel_info;
-HWND g_hwnd_channel_time;
-HWND g_hwnd_count_request_collection;
+HWND g_hwnd_form;               //hwnd окна
+HWND g_hwnd_edit_request_count;        //поле редактировани€ кол-ва з€вок
+HWND g_hwnd_edit_work_count;         //поле редактировани€ кол-ва рабочих
+HWND g_hwnd_button_start_pause;               //кнопка старт/пауза
+HWND g_hwnd_button_stop;               //кнопка стоп
+HWND g_hwnd_time_gen_sourse;  //вывод генерации времени за€вок в источниках
+HWND g_hwnd_count_gen_request;            //вывод кол-ва созданных за€вок
+HWND g_hwnd_sys_time;               //вывод модельного времени
+HWND g_hwnd_redy_queue;               //вывод готовности очередей
+HWND g_hwnd_count_request_queue;          //вывод кол-ва за€вок в очереди
+HWND g_hwnd_all_request_info;          //вывод кол-ва за€вок каждого типа
+HWND g_hwnd_channel_info;               //вывод состо€ни€ каналов
+HWND g_hwnd_channel_time;      //вывод времени обработки за€вок в каналах
+HWND g_hwnd_count_request_collection;    //вывод кол-ва за€вок в сборщике
 HINSTANCE g_instance;
 
 LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
 
+//создание формы
 void CreateForm(HINSTANCE hInstance)
 {
     WNDCLASSEX wincl;
@@ -71,7 +72,7 @@ void CreateForm(HINSTANCE hInstance)
             NULL /* No Window Creation data */
             );
 }
-
+//создание полей ввода
 void CreateEdit()
 {
     g_hwnd_edit_request_count = CreateWindowEx(WS_EX_CLIENTEDGE, "EDIT", "50",
@@ -81,7 +82,7 @@ void CreateEdit()
             ES_LEFT | ES_NUMBER | WS_VISIBLE | WS_CHILD, 270, 40, 40, 20,
             g_hwnd_form, NULL, g_instance, NULL);
 }
-
+//создание текста
 void CreateLabel()
 {
     CreateWindowEx(0, "STATIC", "¬ведите кол-во частей",
@@ -107,7 +108,7 @@ void CreateLabel()
     CreateWindowEx(0, "STATIC", " ол-во за€вок\t",
             ES_LEFT | WS_VISIBLE | WS_CHILD, 10, 180, 240, 20, g_hwnd_form,
             NULL, g_instance, NULL);
-    g_hwnd_time_gen_request = CreateWindowEx(0, "STATIC", "0\t0\t0",
+    g_hwnd_count_gen_request = CreateWindowEx(0, "STATIC", "0\t0\t0",
             ES_LEFT | WS_VISIBLE | WS_CHILD, 120, 180, 240, 20, g_hwnd_form,
             NULL, g_instance, NULL);
     CreateWindowEx(0, "STATIC", "ќчередь\t1\t2\t3\t4\t5\t6\t7",
@@ -138,7 +139,7 @@ void CreateLabel()
             "«а€вок в сборщике:\t0", ES_LEFT | WS_VISIBLE | WS_CHILD, 10, 450,
             240, 20, g_hwnd_form, NULL, g_instance, NULL);
 }
-
+//создание кнопок
 void CreateButton()
 {
     g_hwnd_button_start_pause = CreateWindowEx(0, "BUTTON", "ѕуск",

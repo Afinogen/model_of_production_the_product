@@ -11,13 +11,14 @@
 #include "container.h"
 #include "request.h"
 
+//Класс очередь
 class Queue: public Container
 {
     public:
         Queue();
         ~Queue();
-        int GetCountRequestFromType(const int type) const;
-        void DeleteRequestFromType(const int type);
+        int GetCountRequestFromType(const int type) const;  //Получение кол-ва заявок заданного типа
+        void DeleteRequestFromType(const int type);  //Удаление заявки заданного типа
     private:
 
 };

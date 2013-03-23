@@ -10,6 +10,7 @@
 
 #include "container.h"
 
+//Класс сборщика
 class Collector: public Container
 {
     public:

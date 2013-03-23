@@ -14,19 +14,20 @@
 
 using std::vector;
 
+//Класс контейнера
 class Container
 {
     public:
         Container();
         ~Container();
-        void AddRequest(Request *data);
-        Request *GetRequest(const int idx) const;
-        int GetSizeContainer() const;
-        void DeleteRequest(const int idx);
-        void DeleteRequest(const Request *data);
-        void ClearContainer();
+        void AddRequest(Request *data);  //Добавление заявки в контейнер
+        Request *GetRequest(const int idx) const;  //Получение заявки по id
+        int GetSizeContainer() const;  //Получение размера контейнера
+        void DeleteRequest(const int idx);  //Удаление заявки из контейнера по id
+        void DeleteRequest(const Request *data);  //Удаление заявки из контейнера
+        void ClearContainer();  //Очистка контейнера
     private:
-        vector<Request*> array_data_;
+        vector<Request*> array_data_;  //вектор заявок
 };
 
 #endif  // SRC_LIB_CONTAINER_H_

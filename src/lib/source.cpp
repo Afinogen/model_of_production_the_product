@@ -20,23 +20,23 @@ Source::~Source()
 {
 
 }
-
+//Получение состояние источника
 bool Source::GetState() const
 {
     if (GetTime() == 0) return false;
     else return true;
 }
-
+//Генерация новой заявки
 Request *Source::GetNewRequest(const int time_gen)
 {
     return new Request(++count_gen_request_, type_, 0, time_gen);
 }
-
+//Генерация времени создания следущей заявки
 void Source::GenTime()
 {
     setTime(Random::Rand(rand_a_, rand_b_));
 }
-
+//Кол-во созданных заявок
 int Source::GetCountGenRequest() const
 {
     return count_gen_request_;

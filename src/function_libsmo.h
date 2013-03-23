@@ -34,17 +34,18 @@ extern Queue *g_queue5;
 extern Queue *g_queue6;
 extern Queue *g_queue7;
 
-extern Controller *g_controller;
+extern Controller *g_controller;  //контроллер
 
-extern Collector *g_collector;
+extern Collector *g_collector;  //сборщик
 
-extern int g_count_piece;
-extern int g_count_work;
+extern int g_count_piece;  //кол-во за€вок (деталей)
+extern int g_count_work;  //кол-во рабочих
 
+//—оздание каналов и клапанов
 void InitValveVsChannel();
-
+//—оздание системы моделировани€
 void InitSMO(const int count_piece, const int count_work);
-
+//очистка системы
 void ClearSMO();
 //Ўаг эмул€ции
 void StepEmulation();

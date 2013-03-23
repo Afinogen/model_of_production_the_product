@@ -30,9 +30,10 @@ Controller *g_controller;  //Контроллер
 
 Collector *g_collector;  //Сборщик
 
-int g_count_piece;
-int g_count_work;
+int g_count_piece;  //кол-во заявок (деталей
+int g_count_work;  //кол-во рабочих
 
+//Создание каналов и клапанов
 void InitValveVsChannel()
 {
     g_controller->CreateChannel(7);
@@ -59,7 +60,7 @@ void InitValveVsChannel()
     g_controller->GetValve(6)->setChannel(g_controller->GetChannel(6));
     g_controller->GetChannel(6)->setRandomTime(5, 11);
 }
-
+//Создание системы моделирования
 void InitSMO(const int count_piece, const int count_work)
 {
     g_source_a = new Source(10, 20, 0);
@@ -85,7 +86,7 @@ void InitSMO(const int count_piece, const int count_work)
     g_count_piece = count_piece;
     g_count_work = count_work;
 }
-
+//очистка системы
 void ClearSMO()
 {
     delete g_source_a;
@@ -107,7 +108,7 @@ void ClearSMO()
     delete g_controller;
     delete g_collector;
 }
-
+//Шаг эмуляции
 void StepEmulation()
 {
     g_system_timer->IncTime();
@@ -125,7 +126,7 @@ void StepEmulation()
     MovingRequestFromChannelToQueue();
     MovingRequestFromQueueToChannel();
 }
-
+//Генерация заявок
 void GenerationRequests()
 {
     if (g_source_a->GetTime() == 0)
@@ -213,7 +214,7 @@ void MovingRequestFromChannelToQueue()
         g_controller->GetChannel(6)->DeleteRequest();
     }
 }
-
+//Перемещение заявки из очереди в канал
 void MovingRequestFromQueueToChannel()
 {
     int tmp_count_work = g_count_work;
@@ -354,6 +355,7 @@ bool Queue7IsReady()
             && g_queue7->GetCountRequestFromType(2) >= 2) return true;
     else return false;
 }
+//Проверка завершения эмуляции
 bool CheckEndEmulation()
 {
     if ((g_count_piece * 3)
@@ -366,7 +368,7 @@ bool CheckEndEmulation()
     //if (g_system_timer->GetTime() == 1000) return true;
     else return false;
 }
-
+//Вывод на экран состояния генераторов заявок
 void PrintSourceState()
 {
     printf(Rus("\nГенераторы\tA\tB\tC\n"));
@@ -385,11 +387,11 @@ void PrintSourceState()
     str.append(IntToChar(g_source_b->GetCountGenRequest()));
     str.append("\t");
     str.append(IntToChar(g_source_c->GetCountGenRequest()));
-    SetWindowText(g_hwnd_time_gen_request, str.c_str());
+    SetWindowText(g_hwnd_count_gen_request, str.c_str());
     printf(Rus("Кол-во заявок\t%i\t%i\t%i\n"), g_source_a->GetCountGenRequest(),
             g_source_b->GetCountGenRequest(), g_source_c->GetCountGenRequest());
 }
-
+//Вывод системного времени
 void PrintTimer()
 {
     printf(Rus("Модельное вермя %i мин\n"), g_system_timer->GetTime());
@@ -398,7 +400,7 @@ void PrintTimer()
     str.append(" мин");
     SetWindowText(g_hwnd_sys_time, str.c_str());
 }
-
+//Вывод состояния каналов
 void PrintChannelState()
 {
     printf(Rus("\nКаналы\t\t1\t2\t3\t4\t5\t6\t7\n"));
@@ -450,7 +452,7 @@ void PrintChannelState()
             g_controller->GetChannel(5)->GetTime(),
             g_controller->GetChannel(6)->GetTime());
 }
-
+//Вывод заявок в собрщике
 void PrintCollectorState()
 {
     printf(Rus("\nЗаявок в сборщике: %i\n"), g_collector->GetSizeContainer());
@@ -458,7 +460,7 @@ void PrintCollectorState()
     str.append(IntToChar(g_collector->GetSizeContainer()));
     SetWindowText(g_hwnd_count_request_collection, str.c_str());
 }
-
+//Вывод кол-ва заявок в очереди
 void PrintQueueState()
 {
     printf(Rus("\nОчередь\t\t1\t2\t3\t4\t5\t6\t7\n"));

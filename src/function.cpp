@@ -35,7 +35,7 @@ void setCursosPosition(short x, short y)
     SetConsoleCursorPosition(hConsole, cor);
 }
 
-//
+//Узнаем откуда было запушено приложение
 bool isConsole()
 {
     CONSOLE_SCREEN_BUFFER_INFO info;  // Для получения текущей позиции курсора

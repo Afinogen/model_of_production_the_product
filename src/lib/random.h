@@ -11,13 +11,14 @@
 #include <time.h>
 #include <stdlib.h>
 
+//Класс рандома
 class Random
 {
     public:
         Random();
         ~Random();
-        static double Rand();
-        static double Rand(const int a, const int b);
+        static double Rand();  //случайное число от 0 до RAND_MAX
+        static double Rand(const int a, const int b);  //Случайное число от а до b
     private:
 };
 

@@ -26,21 +26,20 @@ VOID CALLBACK TimerProc(HWND hWnd, UINT nMsg, UINT nIDEvent, DWORD dwTime)
         system("cls");  //При первом запуске бывает абракадабра на экране, необходима полная очистка
         setCursosPosition(0, 0);
     }
-    StepEmulation();
-    PrintTimer();
-    PrintSourceState();
-    PrintQueueState();
-    PrintChannelState();
-    PrintCollectorState();
+    StepEmulation();  //шаг эмуляции
+    PrintTimer();  //вывод модельного времени
+    PrintSourceState();  //вывод состояния источников
+    PrintQueueState();  //вывод состояния очередей
+    PrintChannelState();  //вывод состояния каналов
+    PrintCollectorState();  //вывод состояния сборщика
 
-    if (CheckEndEmulation())
+    if (CheckEndEmulation())  //проверка завершения эмуляции
     {
-        KillTimer(hWnd, hTimer);
+        KillTimer(hWnd, hTimer);  //остановка таймера
         hTimer = NULL;
-        ClearSMO();
+        ClearSMO();  //очистка системы
         pause = false;
         SetWindowText(g_hwnd_button_start_pause, "Старт");
-        //PostQuitMessage(0);
     }
 }
 
@@ -58,11 +57,11 @@ int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance,
         system("cls");
         setCursosPosition(0, 0);
     }
-    CreateForm(hThisInstance);
-    CreateLabel();
-    CreateEdit();
-    CreateButton();
-    ShowWindow(g_hwnd_form, nFunsterStil);
+    CreateForm(hThisInstance);  //создание формы
+    CreateLabel();  //создание текста на фоме
+    CreateEdit();  //создание поей ввода
+    CreateButton();  //создание кнопок
+    ShowWindow(g_hwnd_form, nFunsterStil);  //вывод формы
 
     /* Run the message loop. It will run until GetMessage() returns 0 */
     while (GetMessage(&messages, NULL, 0, 0))
@@ -94,7 +93,7 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam,
             EndPaint(hwnd, &ps);
         break;
         case WM_COMMAND:
-            if ((HWND) lParam == g_hwnd_button_start_pause && hTimer == NULL)
+            if ((HWND) lParam == g_hwnd_button_start_pause && hTimer == NULL)  //Обработка нажатия кнопки старт
             {
                 GetWindowText(g_hwnd_edit_request_count, str_request_count,
                         255);
@@ -104,7 +103,7 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam,
                 hTimer = SetTimer(hwnd, 1, 100, &TimerProc);
                 SetWindowText(g_hwnd_button_start_pause, "Пауза");
             }
-            else if ((HWND) lParam == g_hwnd_button_start_pause&& hTimer!=NULL)
+            else if ((HWND) lParam == g_hwnd_button_start_pause&& hTimer!=NULL)  //обработка нажатия кнопки пауза
             {
                 if (pause)
                 {
@@ -118,7 +117,7 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam,
                 }
 
             }
-            if ((HWND) lParam == g_hwnd_button_stop)
+            if ((HWND) lParam == g_hwnd_button_stop)  //обработка нажатия кнопки стоп
             {
                 if (hTimer != NULL)
                 {
